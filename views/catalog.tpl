@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>1coutlet - каталог товаров из 1с</title>
+  <title>1c outlet - каталог товаров из 1с</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 </head>
@@ -15,7 +15,7 @@
     </div>
   </header>
   <footer>
-    Подвал
+    <hr>
   </footer>
   <script src="/static/js/reload.min.js"></script>
 </body>
