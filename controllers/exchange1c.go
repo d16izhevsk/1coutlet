@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"os"
-	"fmt"
 	"encoding/xml"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"fmt"
+	"os"
+
 	"github.com/astaxie/beego"
+	"github.com/jinzhu/gorm"
 )
 
 // Tovar элемент базы данных товар
@@ -16,18 +16,18 @@ type Tovar struct {
 	Name string
 }
 
-// ГруппаВложеная2
+// ГруппаВложеная2 подгруппа
 type ГруппаВложеная2 struct {
 	Ид           string
 	Наименование string
 }
 
-// -
+// ГруппыВложенные2 структура от 1С
 type ГруппыВложенные2 struct {
 	Группа []ГруппаВложеная2
 }
 
-// -
+// ГруппаВложеная структура от 1С
 type ГруппаВложеная struct {
 	Ид           string
 	Наименование string
@@ -80,7 +80,7 @@ type ЗначенияРеквизитов struct {
 	ЗначениеРеквизита []ЗначениеРеквизита
 }
 
-// -
+// Товар основная единица для обработки
 type Товар struct {
 	Ид                 string
 	Артикул            string
@@ -97,7 +97,7 @@ type Товары struct {
 	Товар []Товар
 }
 
-// -
+// Каталог товаров из 1с
 type Каталог struct {
 	Ид               string
 	ИдКлассификатора string
@@ -105,7 +105,7 @@ type Каталог struct {
 	Товары           Товары
 }
 
-// -
+// Владелец каталога товаров
 type Владелец struct {
 	Ид                      string
 	Наименование            string
@@ -154,6 +154,7 @@ func LoadFile() {
 	}
 }
 
+// ExchangeController позволяет обмениваться Get и Post протоколами
 type ExchangeController struct {
 	beego.Controller
 }
