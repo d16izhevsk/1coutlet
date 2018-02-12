@@ -12,7 +12,7 @@ import (
 // Tovar элемент базы данных товар
 type Tovar struct {
 	gorm gorm.Model
-	Id   string
+	ID   string
 	Name string
 }
 
@@ -34,48 +34,48 @@ type ГруппаВложеная struct {
 	Группы       ГруппыВложенные2
 }
 
-// -
+// ГруппыВложеные странная структура в 1с файле
 type ГруппыВложеные struct {
 	Группа []ГруппаВложеная
 }
 
-// -
+// Группа товаров вложенная
 type Группа struct {
 	Ид           string
 	Наименование string
 	Группы       ГруппыВложеные
 }
 
-// -
+// Группы описания групп
 type Группы struct {
 	Ид     string
 	Группа []Группа
 }
 
-// -
+// Изготовитель по версии 1С
 type Изготовитель struct {
 	Ид           string
 	Наименование string
 }
 
-// -
+// Пересчет единица измерения товара
 type Пересчет struct {
 	Единица     int
 	Коэффициент float32
 }
 
-// -
+// БазоваяЕдиница минимальная единица товара
 type БазоваяЕдиница struct {
 	Пересчет []Пересчет
 }
 
-// -
+// ЗначениеРеквизита из 1с
 type ЗначениеРеквизита struct {
 	Наименование string
 	Значение     string
 }
 
-// -
+// ЗначенияРеквизитов конкретные из 1с
 type ЗначенияРеквизитов struct {
 	ЗначениеРеквизита []ЗначениеРеквизита
 }
@@ -159,10 +159,12 @@ type ExchangeController struct {
 	beego.Controller
 }
 
+// Get контроллера ExchangeController
 func (c *ExchangeController) Get() {
 	c.TplName = "catalog.tpl"
 }
 
+// Post контроллера ExchangeController
 func (c *ExchangeController) Post() {
 	c.TplName = "catalog.tpl"
 }
