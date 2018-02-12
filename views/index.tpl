@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>Beego</title>
+  <title>Интернет-витрина</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
   <style type="text/css">
@@ -32,8 +32,8 @@
       background-size: 100px 100px;
       background-position: center center;
       text-align: center;
-      font-size: 42px;
-      padding: 250px 0 70px;
+      font-size: 22px;
+      padding: 50px 0 60px;
       font-weight: normal;
       text-shadow: 0px 1px 2px #ddd;
     }
@@ -73,9 +73,9 @@
 
 <body>
   <header>
-    <h1 class="logo">Welcome to Beego</h1>
+    <h1 class="logo">Добро пожаловать в Россию, страну медведей и балалаек</h1>
     <div class="description">
-      Beego is a simple & powerful Go web framework which is inspired by tornado and sinatra.
+      Интернет витрина
     </div>
   </header>
   <footer>
