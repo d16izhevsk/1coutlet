@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/xml"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/astaxie/beego"
@@ -129,7 +130,7 @@ type КоммерческаяИнформация struct {
 }
 
 // LoadFile загружает файл xml формата 1С обмена commerceml_2, парсит каталог и вносить в базу данных
-func LoadFile() {
+func LoadFile() КоммерческаяИнформация {
 
 	xmlFile, err := os.Open("test.xml")
 	if err != nil {
@@ -143,15 +144,16 @@ func LoadFile() {
 	var q КоммерческаяИнформация
 	err = xml.Unmarshal(data, &q)
 	if err != nil {
-		fmt.Printf("Ошибка демаршализации: %v\n", err)
-		return
+		log.Printf("Ошибка демаршализации: %v\n", err)
+		return q
 	}
-	fmt.Printf("Каталог: %#v\n", q.Классификатор)
+	// log.Printf("Каталог: %#v\n", q.Классификатор)
 
-	for _, tov := range q.Каталог.Товары.Товар {
-		fmt.Printf("Товар: %#v\n\n", tov)
-		// fmt.Printf("Артикул:%s\tНаименование: %s\tИзготовитель:%s\n", tov.Артикул, tov.Наименование, tov.Изготовитель.Наименование)
-	}
+	// for _, tov := range q.Каталог.Товары.Товар {
+	// 	//log.Printf("Товар: %#v\n\n", tov.Наименование)
+	// 	log.Printf("Артикул:%s\tНаименование: %s\tИзготовитель:%s\n", tov.Артикул, tov.Наименование, tov.Изготовитель.Наименование)
+	// }
+	return q
 }
 
 // ExchangeController позволяет обмениваться Get и Post протоколами

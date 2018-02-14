@@ -11,7 +11,8 @@ type MainController struct {
 
 // Get контроллера MainController
 func (c *MainController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
-	c.TplName = "index.tpl"
+	c.Data["Hi"] = "Hi hi hi"
+	c.Data["Website"] = "liqw.ru"
+	c.Data["Email"] = "dmylnikov@gmail.com"
+	c.TplName = "catalog.tpl"
 }
