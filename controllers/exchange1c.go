@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/astaxie/beego"
+	// "github.com/astaxie/beego/logs"
 	"github.com/jinzhu/gorm"
 )
 
@@ -163,10 +164,41 @@ type ExchangeController struct {
 
 // Get контроллера ExchangeController
 func (c *ExchangeController) Get() {
-	c.TplName = "catalog.tpl"
+	// log := logs.NewLogger(1000)
+	// log.SetLogger("console", "")
+	reqtype := c.GetString("type")
+	reqmode := c.GetString("mode")
+	reqfilename := c.GetString("filename")
+	beego.Info("Request:", reqtype, reqmode, reqfilename)
+	switch reqmode {
+	case "checkauth":
+		beego.Info("A. Начало сеанса")
+		c.TplName = "checkauth.tpl"
+	case "init":
+		beego.Info("B. Запрос параметров от сайта")
+		c.TplName = "init.tpl"
+	case "import":
+		beego.Info("B. Запрос параметров от сайта")
+		c.TplName = "init.tpl"
+	default:
+		beego.Error("Ошибка что-то еще")
+		c.TplName = "catalog.tpl"
+	}
 }
 
 // Post контроллера ExchangeController
 func (c *ExchangeController) Post() {
-	c.TplName = "catalog.tpl"
+
+	c.Prepare()
+	reqfilename := c.GetString("filename")
+
+	reqfile, reqfileheader, err := c.GetFile(reqfilename)
+
+	ctx := c.Ctx
+
+	// body :=
+
+	beego.Info("C. Выгрузка на сайт файлов обмена")
+	beego.Info(reqfilename, reqfile, reqfileheader, err, ctx)
+	c.TplName = "post.tpl"
 }

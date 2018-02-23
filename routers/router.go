@@ -1,11 +1,12 @@
 package routers
 
 import (
-	"github.com/d16izhevsk/1coutlet/controllers"
 	"github.com/astaxie/beego"
+	"github.com/d16izhevsk/1coutlet/controllers"
 )
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	beego.Router("/", &controllers.MainController{})
 	beego.Router("/catalog", &controllers.CatalogController{})
+	beego.Router("/exchange", &controllers.ExchangeController{})
 }
