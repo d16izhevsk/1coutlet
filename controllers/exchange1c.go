@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/xml"
 	"fmt"
+	"io"
 	"log"
 	"os"
 
@@ -131,14 +132,14 @@ type КоммерческаяИнформация struct {
 }
 
 // LoadFile загружает файл xml формата 1С обмена commerceml_2, парсит каталог и вносить в базу данных
-func LoadFile() КоммерческаяИнформация {
+func LoadFile(filename string) КоммерческаяИнформация {
 
-	xmlFile, err := os.Open("test.xml")
+	xmlFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 	}
 	defer xmlFile.Close()
-	stat, _ := os.Stat("test.xml")
+	stat, _ := os.Stat(filename)
 	data := make([]byte, stat.Size())
 	xmlFile.Read(data)
 
@@ -148,12 +149,6 @@ func LoadFile() КоммерческаяИнформация {
 		log.Printf("Ошибка демаршализации: %v\n", err)
 		return q
 	}
-	// log.Printf("Каталог: %#v\n", q.Классификатор)
-
-	// for _, tov := range q.Каталог.Товары.Товар {
-	// 	//log.Printf("Товар: %#v\n\n", tov.Наименование)
-	// 	log.Printf("Артикул:%s\tНаименование: %s\tИзготовитель:%s\n", tov.Артикул, tov.Наименование, tov.Изготовитель.Наименование)
-	// }
 	return q
 }
 
@@ -172,33 +167,35 @@ func (c *ExchangeController) Get() {
 	beego.Info("Request:", reqtype, reqmode, reqfilename)
 	switch reqmode {
 	case "checkauth":
-		beego.Info("A. Начало сеанса")
+		// beego.Info("A. Начало сеанса")
 		c.TplName = "checkauth.tpl"
 	case "init":
-		beego.Info("B. Запрос параметров от сайта")
+		// beego.Info("B. Запрос параметров от сайта")
 		c.TplName = "init.tpl"
 	case "import":
-		beego.Info("B. Запрос параметров от сайта")
-		c.TplName = "init.tpl"
+		// beego.Info("D. Пошаговая загрузка данных")
+		// Загрузка из файла в базу данных
+		c.TplName = "import.tpl"
 	default:
-		beego.Error("Ошибка что-то еще")
-		c.TplName = "catalog.tpl"
+		// beego.Error("Ошибка что-то еще")
+		c.TplName = "index.tpl"
 	}
 }
 
 // Post контроллера ExchangeController
 func (c *ExchangeController) Post() {
 
-	c.Prepare()
+	// beego.Info("C. Выгрузка на сайт файлов обмена")
 	reqfilename := c.GetString("filename")
-
-	reqfile, reqfileheader, err := c.GetFile(reqfilename)
-
-	ctx := c.Ctx
-
-	// body :=
-
-	beego.Info("C. Выгрузка на сайт файлов обмена")
-	beego.Info(reqfilename, reqfile, reqfileheader, err, ctx)
+	file, err := os.Create(reqfilename)
+	if err == nil {
+		n, err := io.Copy(file, c.Ctx.Request.Body)
+		file.Close()
+		if err != nil {
+			beego.Info(err)
+		} else {
+			beego.Info("Прочитано байт: ", n, " из ", c.Ctx.Request.ContentLength, "байт файла: ", reqfilename)
+		}
+	}
 	c.TplName = "post.tpl"
 }

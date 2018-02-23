@@ -16,11 +16,9 @@
     <hr>
   </header>
   <div class="container-fluid">
-    {{range .Tovar}}
     <div class="row">
     <div class="col-sm-7">{{.Наименование}}</div><div class="col-sm-2">{{.Артикул}}</div><div class="col-sm-3">{{.Изготовитель.Наименование}}</div>
     </div>
-    {{end}}
   </div>
   <footer>
     <hr>

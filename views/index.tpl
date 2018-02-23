@@ -75,7 +75,7 @@
   <header>
     <h1 class="logo">Добро пожаловать в Россию, страну медведей и балалаек</h1>
     <div class="description">
-      Интернет витрина
+      Интернет витрина: <a href="/catalog"><b>Каталог товаров 1с</b></a>
     </div>
   </header>
   <footer>
