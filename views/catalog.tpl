@@ -10,9 +10,7 @@
 <body>
   <header>
     <h1 class="logo">Каталог товаров из 1С</h1>
-    <div class="description">
-    Тут привет из {{.Hi}}<br>
-    </div>
+    <div class="description">{{.Hi}}</div>
     <hr>
   </header>
   <div class="container-fluid">
