@@ -10,14 +10,16 @@
 <body>
   <header>
     <h1 class="logo">Каталог товаров из 1С</h1>
-    <div class="description">{{.Hi}}</div>
+    <div class="description">{{.Hi}} Счетчик вызовов равер {{.SecretCode}}</div>
     <hr>
   </header>
+  {{range .Tovar}}
   <div class="container-fluid">
     <div class="row">
     <div class="col-sm-7">{{.Наименование}}</div><div class="col-sm-2">{{.Артикул}}</div><div class="col-sm-3">{{.Изготовитель.Наименование}}</div>
     </div>
   </div>
+  {{end}}
   <footer>
     <hr>
   </footer>

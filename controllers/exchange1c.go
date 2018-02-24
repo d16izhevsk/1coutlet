@@ -57,7 +57,9 @@ func (c *ExchangeController) Get() {
 	case "import":
 		// Загрузка из файла в базу данных
 		// beego.Info("D. Пошаговая загрузка данных")
-		LoadFile(reqfilename)
+		if reqfilename == "import0_1.xml" { // Пока загружаем только товары с артикулами и описаниями
+			models.CI = LoadFile(reqfilename)
+		}
 		c.TplName = "import.tpl"
 	default:
 		// beego.Error("Ошибка что-то еще")
@@ -72,12 +74,12 @@ func (c *ExchangeController) Post() {
 	reqfilename := c.GetString("filename")
 	file, err := os.Create(reqfilename)
 	if err == nil {
-		io.Copy(file, c.Ctx.Request.Body)
+		n, _ := io.Copy(file, c.Ctx.Request.Body)
 		file.Close()
 		if err != nil {
 			beego.Info(err)
 		} else {
-			// beego.Info("Прочитано байт: ", n, " из ", c.Ctx.Request.ContentLength, "байт файла: ", reqfilename)
+			beego.Info("Прочитано байт: ", n, " из ", c.Ctx.Request.ContentLength, "байт файла: ", reqfilename)
 		}
 	}
 	c.TplName = "post.tpl"

@@ -14,5 +14,8 @@ type CatalogController struct {
 // Get позволяет общаться сайту по протоколу Get
 func (c *CatalogController) Get() {
 	c.Data["Hi"] = "Приветствуем вас в alpha версии 0.2"
+	c.Data["SecretCode"] = models.SecretCode
+	models.SecretCode++
+	c.Data["Tovar"] = models.CI.Каталог.Товары.Товар
 	c.TplName = "catalog.tpl"
 }
