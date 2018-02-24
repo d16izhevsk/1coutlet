@@ -14,7 +14,7 @@ import (
 // LoadFile загружает файл xml формата 1С обмена commerceml_2, парсит каталог и вносить в базу данных
 func LoadFile(filename string) models.КоммерческаяИнформация {
 
-	beego.Info("Загружаю файл:", filename)
+	// beego.Info("Загружаю файл:", filename)
 	xmlFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
