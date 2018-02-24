@@ -1,14 +1,5 @@
 package models
 
-import "github.com/jinzhu/gorm"
-
-// Tovar элемент базы данных товар
-type Tovar struct {
-	gorm gorm.Model
-	ID   string
-	Name string
-}
-
 // ГруппаВложеная2 подгруппа
 type ГруппаВложеная2 struct {
 	Ид           string
@@ -120,6 +111,3 @@ type КоммерческаяИнформация struct {
 	Классификатор Классификатор
 	Каталог       Каталог
 }
-
-// CommInfo для структуры
-type CommInfo КоммерческаяИнформация

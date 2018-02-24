@@ -8,10 +8,11 @@ import (
 	"os"
 
 	"github.com/astaxie/beego"
+	"github.com/d16izhevsk/1coutlet/models"
 )
 
 // LoadFile загружает файл xml формата 1С обмена commerceml_2, парсит каталог и вносить в базу данных
-func LoadFile(filename string) CommInfo {
+func LoadFile(filename string) models.КоммерческаяИнформация {
 
 	beego.Info("Загружаю файл:", filename)
 	xmlFile, err := os.Open(filename)
@@ -23,7 +24,7 @@ func LoadFile(filename string) CommInfo {
 	data := make([]byte, stat.Size())
 	xmlFile.Read(data)
 
-	var q CommInfo
+	var q models.КоммерческаяИнформация
 	err = xml.Unmarshal(data, &q)
 	if err != nil {
 		log.Printf("Ошибка демаршализации: %v\n", err)
