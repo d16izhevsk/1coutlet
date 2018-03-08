@@ -1,5 +1,37 @@
 package models
 
+import (
+	"github.com/astaxie/beego/orm"
+	_ "github.com/go-sql-driver/mysql"
+)
+
+func init() {
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDataBase("default", "mysql", "root:123456@/1coutlet?charset=utf8")
+}
+
+// Tovar содержит базу данных
+type Tovar struct {
+	Id       int
+	Idc      string
+	Articul  string
+	Name     string
+	Opisanie string
+	Gruppa   string
+}
+
+// Gruppa содержит базу данных
+type Gruppa struct {
+	Id   int
+	Idc  string
+	Name string
+}
+
+func init() {
+	// Need to register model in init
+	orm.RegisterModel(new(Tovar), new(Gruppa))
+}
+
 // ГруппаВложеная2 подгруппа
 type ГруппаВложеная2 struct {
 	Ид           string

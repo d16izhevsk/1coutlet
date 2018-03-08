@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	"github.com/d16izhevsk/1coutlet/models"
 )
 
@@ -31,6 +32,42 @@ func LoadFile(filename string) models.КоммерческаяИнформаци
 		return q
 	}
 	// beego.Info(q.Каталог.Товары)
+
+	o := orm.NewOrm()
+	o.Using("default") // Using default, you can use other database
+
+	id := 1
+	for _, группа := range q.Классификатор.Группы.Группа {
+		// beego.Info(группа.Ид, группа.Наименование)
+		gruppa := new(models.Gruppa)
+		gruppa.Id = id
+		id++
+		gruppa.Idc = группа.Ид
+		gruppa.Name = группа.Наименование
+		_, err := o.Insert(gruppa)
+		if err != nil {
+			beego.Error(err)
+		}
+	}
+	beego.Info("Группы загружены")
+
+	id = 1
+	for _, товар := range q.Каталог.Товары.Товар {
+		tovar := new(models.Tovar)
+		tovar.Id = id
+		id++
+		tovar.Articul = товар.Артикул
+		tovar.Idc = товар.Ид
+		tovar.Name = товар.Наименование
+		tovar.Opisanie = товар.Описание
+		tovar.Gruppa = товар.Группы[0].Ид
+		_, err := o.Insert(tovar)
+		if err != nil {
+			beego.Error(err)
+		}
+	}
+	beego.Info("Товар загружен")
+
 	return q
 }
 

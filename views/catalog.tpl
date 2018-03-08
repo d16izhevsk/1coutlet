@@ -11,12 +11,13 @@
   <header>
     <h1 class="logo">Каталог товаров из 1С</h1>
     <div class="description">{{.Hi}} Счетчик вызовов равер {{.SecretCode}}</div>
+    <p>Записей в таблице:{{.Count}} Ошибка:{{.Err}}</p>
     <hr>
   </header>
-  {{range .Tovar}}
+  {{range .Tovars}}
   <div class="container-fluid">
     <div class="row">
-    <div class="col-sm-7">{{.Наименование}}</div><div class="col-sm-2">{{.Артикул}}</div><div class="col-sm-3">{{.Изготовитель.Наименование}}</div>
+      <div class="col-sm-6">{{.Name}}</div><div class="col-sm-4">{{.Idc}}</div><div class="col-sm-1">2</div>
     </div>
   </div>
   {{end}}
