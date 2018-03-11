@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>{{.Gruppa}}</title>
+  <title>компании Нео</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="static/css/catalog.css">
@@ -10,19 +10,19 @@
 
 <body>
   <header class="header">
-    <h1 class="logo">Каталог товаров из 1С. Товаров: {{.Count}} </h1>
+    <h1 class="logo"><a href="/catalog">Каталог товаров из 1С.</a> Товаров: {{.Count}} </h1>
   </header>
   <div class="container-fluid row">
-    <div class="col-9">
+    <div class="col-sm-9">
       {{range .Tovars}}
       <div class="row bgcol{{.}}">
         <div class="col-6"><a href="/tovar?tovid={{.Id}}">{{.Tname}}</a></div><div class="col-2">{{.Articul}}</div><div class="col-4">{{.Gname}}</div>
       </div>
       {{end}}
     </div>
-    <div class="col-3">
+    <div class="col-sm-3">
       <div class="row">
-        <div class="col-12"><b>{{.Gruppa}}</b> (Групп: {{.Countg}})</div>
+        <div class="col-12"><b><a href="/catalog?grpid={{.Gruppa.Id}}">{{.Gruppa.Name}}</a></b> (Групп: {{.Countg}})</div>
       </div>
       {{range .Grupps}}
       <div class="row">

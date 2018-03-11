@@ -54,9 +54,8 @@ func (c *CatalogController) Get() {
 	tekGruppa := models.Gruppa{Id: grpid}
 	err := o.Read(&tekGruppa)
 	if err != nil {
-		c.Data["Gruppa"] = "1С витрина"
 	} else {
-		c.Data["Gruppa"] = tekGruppa.Name
+		c.Data["Gruppa"] = tekGruppa
 	}
 	// beego.Info(err)
 
