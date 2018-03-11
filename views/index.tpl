@@ -56,7 +56,7 @@
 
     a {
       color: #444;
-      text-decoration: none;
+      /* text-decoration: none; */
     }
 
     .backdrop {
@@ -73,11 +73,11 @@
 
 <body>
   <header>
-    <h1 class="logo">Добро пожаловать в Россию, страну медведей и балалаек</h1>
-    <div class="description">
-      Интернет витрина: <a href="/catalog"><b>Каталог товаров 1с</b></a>
-    </div>
+    <h1 class="logo">Интернет-витрина для 1С управления торговлей и Розницой</h1>
   </header>
+  <div class="container">
+    <div align="center">Интернет витрина: <a href="/catalog"><b>Каталог товаров 1с</b></a></div>
+  </div>
   <footer>
     <div class="author">
       Official website:

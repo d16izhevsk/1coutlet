@@ -2,29 +2,45 @@
 
 <html>
 <head>
-  <title>1c outlet - каталог товаров из 1с</title>
+  <title>{{.Gruppa}}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/catalog.css">
 </head>
 
 <body>
-  <header>
-    <h1 class="logo">Каталог товаров из 1С</h1>
-    <div class="description">{{.Hi}} Счетчик вызовов равер {{.SecretCode}}</div>
-    <p>Записей в таблице:{{.Count}} Ошибка:{{.Err}}</p>
-    <hr>
+  <header class="header">
+    <h1 class="logo">Каталог товаров из 1С. Товаров: {{.Count}} </h1>
   </header>
-  {{range .Tovars}}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-6">{{.Name}}</div><div class="col-sm-4">{{.Idc}}</div><div class="col-sm-1">2</div>
+  <div class="container-fluid row">
+    <div class="col-9">
+      {{range .Tovars}}
+      <div class="row bgcol{{.}}">
+        <div class="col-6"><a href="/tovar?tovid={{.Id}}">{{.Tname}}</a></div><div class="col-2">{{.Articul}}</div><div class="col-4">{{.Gname}}</div>
+      </div>
+      {{end}}
     </div>
+    <div class="col-3">
+      <div class="row">
+        <div class="col-12"><b>{{.Gruppa}}</b> (Групп: {{.Countg}})</div>
+      </div>
+      {{range .Grupps}}
+      <div class="row">
+        <div class="col">
+          <a href="/catalog?grpid={{.Id}}">{{.Id}}.{{.Name}}</a>
+        </div>
+      </div>
+      {{end}}
+    </div>    
   </div>
-  {{end}}
-  <footer>
-    <hr>
+
+  <footer class="footer">
+    <div>Контакты магазина</div>
   </footer>
-  <script src="/static/js/reload.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>

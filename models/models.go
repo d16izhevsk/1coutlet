@@ -25,6 +25,7 @@ type Gruppa struct {
 	Id   int
 	Idc  string
 	Name string
+	Pid  int
 }
 
 func init() {

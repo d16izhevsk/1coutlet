@@ -12,6 +12,38 @@ import (
 	"github.com/d16izhevsk/1coutlet/models"
 )
 
+var id = 0
+
+// LoadGruppa2 рекурсивно загружает группы в ORM
+func LoadGruppa2(Группы []models.ГруппаВложеная2, o orm.Ormer, pid int) {
+	for _, группа := range Группы {
+		// beego.Info(группы2.Наименование)
+		id++
+		gruppa := new(models.Gruppa)
+		gruppa.Id = id
+		gruppa.Idc = группа.Ид
+		gruppa.Name = группа.Наименование
+		gruppa.Pid = pid
+		o.Insert(gruppa)
+		// LoadGruppa(группа.Группы.Группа, o)
+	}
+}
+
+// LoadGruppa рекурсивно загружает группы в ORM
+func LoadGruppa(Группы []models.ГруппаВложеная, o orm.Ormer, pid int) {
+	for _, группа := range Группы {
+		// beego.Info(группы2.Наименование)
+		id++
+		gruppa := new(models.Gruppa)
+		gruppa.Id = id
+		gruppa.Idc = группа.Ид
+		gruppa.Name = группа.Наименование
+		gruppa.Pid = pid
+		o.Insert(gruppa)
+		LoadGruppa2(группа.Группы.Группа, o, id)
+	}
+}
+
 // LoadFile загружает файл xml формата 1С обмена commerceml_2, парсит каталог и вносить в базу данных
 func LoadFile(filename string) models.КоммерческаяИнформация {
 
@@ -35,19 +67,15 @@ func LoadFile(filename string) models.КоммерческаяИнформаци
 
 	o := orm.NewOrm()
 	o.Using("default") // Using default, you can use other database
-
-	id := 1
 	for _, группа := range q.Классификатор.Группы.Группа {
-		// beego.Info(группа.Ид, группа.Наименование)
+		id++
 		gruppa := new(models.Gruppa)
 		gruppa.Id = id
-		id++
 		gruppa.Idc = группа.Ид
 		gruppa.Name = группа.Наименование
-		_, err := o.Insert(gruppa)
-		if err != nil {
-			beego.Error(err)
-		}
+		gruppa.Pid = 0
+		o.Insert(gruppa)
+		LoadGruppa(группа.Группы.Группа, o, id)
 	}
 	beego.Info("Группы загружены")
 
