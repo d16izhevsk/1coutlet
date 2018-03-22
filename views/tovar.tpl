@@ -17,12 +17,17 @@
         <div class="row">
             <div class="col-8">
                 <div class="row"><h2>{{.Tovar.Name}}</h2></div>
-                <div class="row">{{.Tovar.Articul}}</div>
+                <div class="row" id="tovar">{{.Tovar.Articul}}</div>
                 <div class="row">{{.Tovar.Opisanie}}</div>
                 
             </div>
-            <div class="col-4">
+            <div class="col-4" id="gruppa">
                 <h2>Группа</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{.Tovar.Idc}}
             </div>
         </div>
     </div>
