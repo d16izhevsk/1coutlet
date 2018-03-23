@@ -9,7 +9,7 @@ import (
 // CatalogController контроллер основых действий
 type CatalogController struct {
 	beego.Controller
-	CI models.КоммерческаяИнформация
+	// CI models.КоммерческаяИнформация
 }
 
 // Catalog содержит базу данных
@@ -20,6 +20,28 @@ type Catalog struct {
 	Tname   string
 	Gruppa  string
 	Gname   string
+}
+
+type Task struct {
+	ID    int64  // Unique identifier
+	Title string // Description
+	Done  bool   // Is this task done?
+}
+
+//
+func (c *CatalogController) ListGrups() {
+
+	// Выбираем подгруппы начиная с корня
+	o := orm.NewOrm()
+	qbg, _ := orm.NewQueryBuilder("mysql")
+	qbg.Select("gruppa.id", "gruppa.idc", "gruppa.name", "gruppa.pid").
+		From("gruppa").Where("gruppa.pid=?").Limit(100)
+	sql2 := qbg.String()
+	var grp []*models.Gruppa
+	o.Raw(sql2, 0).QueryRows(&grp)
+	beego.Info(grp)
+	c.Data["json"] = grp
+	c.ServeJSON()
 }
 
 // Get позволяет общаться сайту по протоколу Get
